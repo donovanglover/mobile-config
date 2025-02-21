@@ -9,8 +9,11 @@
   };
 
   outputs =
-    { self, nixpkgs, ... }:
+    { nix-config, mobile-nixos, ... }@attrs:
     let
+      inherit (nix-config.inputs) nixpkgs;
+      inherit (builtins) attrValues;
+
       inherit (nixpkgs.lib) nixosSystem genAttrs replaceStrings;
       inherit (nixpkgs.lib.filesystem) packagesFromDirectoryRecursive listFilesRecursive;
 
@@ -39,30 +42,23 @@
 
       homeModules = genAttrs (map nameOf (listFilesRecursive ./home)) (name: import ./home/${name}.nix);
 
-      overlays = genAttrs (map nameOf (listFilesRecursive ./overlays)) (
-        name: import ./overlays/${name}.nix
-      );
-
-      checks = forAllSystems (
-        pkgs:
-        genAttrs (map nameOf (listFilesRecursive ./tests)) (
-          name:
-          import ./tests/${name}.nix {
-            inherit self pkgs;
-          }
-        )
-      );
-
       nixosConfigurations = {
         mobile-nixos = nixosSystem {
           system = "aarch64-linux";
-          specialArgs.nix-config = self;
-          modules = listFilesRecursive ./hosts/phone;
+          specialArgs = attrs;
+          modules = listFilesRecursive ./hosts/phone ++ attrValues mobile-nixos.nixosModules ++ [
+            {
+              mobile.beautification = {
+                silentBoot = true;
+                splash = true;
+              };
+            }
+          ];
         };
 
         mobile-nixos-vm = nixosSystem {
           system = "x86_64-linux";
-          specialArgs.nix-config = self;
+          specialArgs = attrs;
           modules = listFilesRecursive ./hosts/phone;
         };
       };

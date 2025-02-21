@@ -284,23 +284,10 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 0,
-        "narHash": "sha256-EO1ygNKZlsAC9avfcwHkKGMsmipUk1Uc0TbrEZpkn64=",
-        "path": "/nix/store/kdynjy1mbgkdg4p196v9gx6ljpf7q4nk-source",
-        "type": "path"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
-      }
-    },
     "root": {
       "inputs": {
         "mobile-nixos": "mobile-nixos",
-        "nix-config": "nix-config",
-        "nixpkgs": "nixpkgs_2"
+        "nix-config": "nix-config"
       }
     },
     "sakaya": {
