@@ -1,24 +1,18 @@
-{ nix-config, lib, ... }:
+{ self, nix-config, lib, ... }:
 
 let
   inherit (builtins) attrValues;
-  inherit (lib.filesystem) packagesFromDirectoryRecursive listFilesRecursive;
 in
 {
-  imports =
-    attrValues nix-config.nixosModules
-    ++ attrValues nix-config.inputs.mobile-nixos.nixosModules;
+  imports = attrValues nix-config.nixosModules ++ attrValues self.nixosModules;
 
   nixpkgs = {
-    overlays = with nix-config.overlays; [ phinger-cursors ];
-
     config.permittedInsecurePackages = [
       "olm-3.2.16"
     ];
   };
 
-  home-manager.sharedModules = listFilesRecursive ./home ++ (with nix-config.homeModules; [
-    dconf
+  home-manager.sharedModules = attrValues self.homeModules ++ (with nix-config.homeModules; [
     eza
     fish
     git
@@ -33,6 +27,8 @@ in
     xresources
   ]);
 
+  hardware.graphics.enable32Bit = lib.mkForce false;
+
   modules = {
     system = {
       hostName = "mobile-nixos";
@@ -41,12 +37,6 @@ in
     };
 
     hardware.keyboardBinds = true;
-
-    phone.enable = true;
   };
 
-  mobile.beautification = {
-    silentBoot = true;
-    splash = true;
-  };
 }
