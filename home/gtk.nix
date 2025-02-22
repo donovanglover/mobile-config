@@ -6,9 +6,9 @@
 }:
 
 let
-  inherit (nixosConfig._module.specialArgs) nix-config;
+  inherit (nixosConfig._module.specialArgs) self;
 
-  phosh-backgrounds = nix-config.packages.${pkgs.system}.phosh-backgrounds.override {
+  phosh-backgrounds = self.packages.${pkgs.system}.phosh-backgrounds.override {
     color = config.lib.stylix.colors.base00;
   };
 in
