@@ -7,6 +7,8 @@ in
   imports = attrValues nix-config.nixosModules ++ attrValues self.nixosModules;
 
   nixpkgs = {
+    overlays = attrValues nix-config.overlays;
+
     config.permittedInsecurePackages = [
       "olm-3.2.16"
     ];
