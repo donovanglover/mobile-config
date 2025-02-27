@@ -28,8 +28,6 @@ in
       };
     };
 
-    hardware.opengl.enable = true;
-
     programs = {
       calls.enable = true;
       hyprland.enable = lib.mkForce false;
