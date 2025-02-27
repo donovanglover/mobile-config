@@ -6,41 +6,41 @@
 }:
 
 let
-  inherit (lib)
-    mkIf
-    mkEnableOption
-    mkForce
-    singleton
-    ;
-
   inherit (config.modules.system) username;
-
-  cfg = config.modules.phone;
 in
 {
-  options.modules.phone = {
-    enable = mkEnableOption "phone support";
-  };
+  config = {
+    environment = {
+      sessionVariables = {
+        LIBGL_ALWAYS_SOFTWARE = "true";
+      };
 
-  config = mkIf cfg.enable {
-    environment.sessionVariables.LIBGL_ALWAYS_SOFTWARE = "true";
+      systemPackages = with pkgs; [
+        chatty
+        megapixels
+        livi
+        gnome-contacts
+        eog
+      ];
+    };
 
     # password = mkIf (hashedPassword == null && !isContainer) "1234";
     home-manager = {
-      sharedModules = singleton {
-        programs.man.generateCaches = false;
-
-        systemPackages = with pkgs; [
-          chatty
-          megapixels
-          livi
-          gnome-contacts
-          eog
-        ];
+      sharedModules = lib.singleton {
+        programs.man.generateCaches = lib.mkForce false;
       };
     };
 
-    programs.calls.enable = true;
+    hardware.opengl.enable = true;
+
+    programs = {
+      calls.enable = true;
+      hyprland.enable = lib.mkForce false;
+      cdemu.enable = lib.mkForce false;
+      thunar.enable = lib.mkForce false;
+    };
+
+    i18n.inputMethod.enable = lib.mkForce false;
 
     networking = {
       wireless.enable = false;
@@ -63,7 +63,7 @@ in
         };
       };
 
-      firewall.checkReversePath = mkForce false;
+      firewall.checkReversePath = lib.mkForce false;
     };
 
     documentation = {
@@ -81,6 +81,10 @@ in
           user = username;
         };
       };
+
+      udisks2.enable = lib.mkForce false;
+      pipewire.enable = lib.mkForce false;
+      greetd.enable = lib.mkForce false;
     };
 
     boot = {
