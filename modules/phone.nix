@@ -11,16 +11,13 @@ in
 {
   config = {
     environment = {
-      sessionVariables = {
-        LIBGL_ALWAYS_SOFTWARE = "true";
-      };
-
       systemPackages = with pkgs; [
         chatty
         megapixels
         livi
         gnome-contacts
         eog
+        alacritty
       ];
     };
 
