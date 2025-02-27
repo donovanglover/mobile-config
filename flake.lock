@@ -255,11 +255,11 @@
         "stylix": "stylix"
       },
       "locked": {
-        "lastModified": 1740053370,
-        "narHash": "sha256-JbpJMntdGyl33UMfc2UtDhW40iFcr/MbK3i13kGeyvA=",
+        "lastModified": 1740275950,
+        "narHash": "sha256-pfzxVL2RZG+g3yLUMEtcH/2uBxsqJlihgBNxzn3pWRk=",
         "owner": "donovanglover",
         "repo": "nix-config",
-        "rev": "8c9b84dfbd3ffc564cee8462e7627ef15fde6b04",
+        "rev": "ad599dfc284cee9cbb09b996d62e1b645e6ce701",
         "type": "github"
       },
       "original": {
