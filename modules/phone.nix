@@ -82,6 +82,8 @@ in
       udisks2.enable = lib.mkForce false;
       pipewire.enable = lib.mkForce false;
       greetd.enable = lib.mkForce false;
+
+      getty.autologinUser = "user";
     };
 
     boot = {
