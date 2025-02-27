@@ -7,7 +7,7 @@ My [NixOS](https://nixos.org/) configuration for running [Mobile NixOS](https://
 
 | <img src="./.github/screenshots/librewolf.png" alt="A screenshot of a PinePhone running LibreWolf showing a blog post about NixOS." width=380 /> | <img src="./.github/screenshots/pinephone-review.png" alt="A screenshot of a PinePhone running LibreWolf showing a redlib post complaining about the PinePhone." width=380 /> |
 | ------------- | ------------- |
-| Source: [NixOS on underpowered devices](https://eno.space/blog//2021/08/nixos-on-underpowered-devices) by pennae | Source: [UtopiaOS for PainPhone](https://www.reddit.com/r/pinephone/comments/171wlt7/utopiaos_for_painphone/) by coldpizza |
+| [NixOS on underpowered devices](https://eno.space/blog//2021/08/nixos-on-underpowered-devices) by pennae | [UtopiaOS for PainPhone](https://www.reddit.com/r/pinephone/comments/171wlt7/utopiaos_for_painphone/) by coldpizza |
 
 ## Features
 
