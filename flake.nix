@@ -9,7 +9,7 @@
   };
 
   outputs =
-    { nix-config, mobile-nixos, ... }@attrs:
+    { self, nix-config, mobile-nixos }@attrs:
     let
       inherit (nix-config.inputs) nixpkgs;
       inherit (builtins) attrValues;
@@ -45,7 +45,11 @@
       nixosConfigurations = {
         mobile-nixos = nixosSystem {
           system = "aarch64-linux";
-          specialArgs = attrs;
+
+          specialArgs = attrs // {
+            mobile-config = self;
+          };
+
           modules = listFilesRecursive ./hosts/phone ++ attrValues mobile-nixos.nixosModules ++ [
             {
               mobile.beautification = {
@@ -58,7 +62,11 @@
 
         mobile-nixos-vm = nixosSystem {
           system = "x86_64-linux";
-          specialArgs = attrs;
+
+          specialArgs = attrs // {
+            mobile-config = self;
+          };
+
           modules = listFilesRecursive ./hosts/phone;
         };
       };

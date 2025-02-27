@@ -1,10 +1,10 @@
-{ self, nix-config, lib, ... }:
+{ mobile-config, nix-config, lib, ... }:
 
 let
   inherit (builtins) attrValues;
 in
 {
-  imports = attrValues nix-config.nixosModules ++ attrValues self.nixosModules;
+  imports = attrValues mobile-config.nixosModules ++ attrValues nix-config.nixosModules;
 
   nixpkgs = {
     overlays = attrValues nix-config.overlays;
@@ -14,7 +14,7 @@ in
     ];
   };
 
-  home-manager.sharedModules = attrValues self.homeModules ++ (with nix-config.homeModules; [
+  home-manager.sharedModules = attrValues mobile-config.homeModules ++ (with nix-config.homeModules; [
     eza
     fish
     git
