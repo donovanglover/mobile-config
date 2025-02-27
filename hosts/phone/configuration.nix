@@ -1,4 +1,9 @@
-{ mobile-config, nix-config, lib, ... }:
+{
+  mobile-config,
+  nix-config,
+  lib,
+  ...
+}:
 
 let
   inherit (builtins) attrValues;
@@ -14,20 +19,22 @@ in
     ];
   };
 
-  home-manager.sharedModules = attrValues mobile-config.homeModules ++ (with nix-config.homeModules; [
-    eza
-    fish
-    git
-    gpg
-    gtk
-    htop
-    kitty
-    librewolf
-    neovim
-    starship
-    xdg-user-dirs
-    xresources
-  ]);
+  home-manager.sharedModules =
+    attrValues mobile-config.homeModules
+    ++ (with nix-config.homeModules; [
+      eza
+      fish
+      git
+      gpg
+      gtk
+      htop
+      kitty
+      librewolf
+      neovim
+      starship
+      xdg-user-dirs
+      xresources
+    ]);
 
   hardware.graphics.enable32Bit = lib.mkForce false;
 
