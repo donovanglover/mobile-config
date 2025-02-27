@@ -6,10 +6,8 @@
 }:
 
 let
-  inherit (config.modules.system) username;
-
+  inherit (config.modules.system) username hashedPassword;
   inherit (config.boot) isContainer;
-  inherit (config.users.users.user) hashedPassword;
 in
 {
   config = {
@@ -24,7 +22,7 @@ in
       ];
     };
 
-    users.users.user.password = lib.mkIf (hashedPassword == null && !isContainer) "1234";
+    users.users.${username}.password = lib.mkIf (hashedPassword == null && !isContainer) "1234";
 
     home-manager = {
       sharedModules = lib.singleton {
@@ -85,7 +83,7 @@ in
       pipewire.enable = lib.mkForce false;
       greetd.enable = lib.mkForce false;
 
-      getty.autologinUser = "user";
+      getty.autologinUser = username;
     };
 
     boot = {
