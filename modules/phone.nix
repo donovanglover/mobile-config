@@ -7,6 +7,9 @@
 
 let
   inherit (config.modules.system) username;
+
+  inherit (config.boot) isContainer;
+  inherit (config.users.users.user) hashedPassword;
 in
 {
   config = {
@@ -21,7 +24,8 @@ in
       ];
     };
 
-    # password = mkIf (hashedPassword == null && !isContainer) "1234";
+    users.users.user.password = lib.mkIf (hashedPassword == null && !isContainer) "1234";
+
     home-manager = {
       sharedModules = lib.singleton {
         programs.man.generateCaches = lib.mkForce false;
